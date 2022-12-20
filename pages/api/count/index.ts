@@ -1,22 +1,26 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+
 import clientPromise from '../../../lib/mongobd';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   try {
     const client = await clientPromise;
-    const db = client.db('mydb');
-    const collection = db.collection('count');
+    const db = client.db("mydb");
+    const collection = db.collection("count");
     const { method } = req;
 
     switch (method) {
-      case 'POST':
+      case "POST":
         await collection.insertOne({ dateAdded: new Date() });
-      case 'GET':
+      case "GET":
         const count = await collection.countDocuments();
         res.status(200).json({ count });
         break;
       default:
-        res.setHeader('Allow', ['GET', 'POST']);
+        res.setHeader("Allow", ["GET", "POST"]);
         res.status(405).end(`Method ${method} Not Allowed`);
         break;
     }

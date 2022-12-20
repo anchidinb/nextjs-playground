@@ -1,0 +1,29 @@
+version: "3.7"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    volumes:
+      - .:/app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - SERVICE_NAME=API
+      - PORT=3000
+      - MONGODB_URI=mongodb://mongo:27017/
+      - NODE_ENV=development
+
+  mongo:
+    image: mongo
+    command: mongod --port 27017
+    ports:
+      - 27040:27017
+    volumes:
+      - nextjs-mongo-db:/data/db
+
+volumes:
+  nextjs-mongo-db:
+    driver: local

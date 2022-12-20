@@ -1,12 +1,11 @@
 import Head from 'next/head';
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
   const [data, setData] = useState(null);
   const [pageLoading, setPageLoading] = useState(true);
   const [isLoading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [, setError] = useState(null);
 
   useEffect(() => {
     setPageLoading(true);
@@ -49,9 +48,9 @@ export default function Home() {
           <h1 className="title">Loading...</h1>
         </main>
       ) : (
-        <main>
+        <main className="items-center justify-around h-screen ">
           <h1 className="title">This button has been clicked {data?.count} times!</h1>
-          <button className="bg-cyan-400" onClick={handleButtonClick} disabled={isLoading}>
+          <button className="bg-cyan-400 py-2 px-4 mt-4 shadow-md" onClick={handleButtonClick} disabled={isLoading}>
             {isLoading ? 'Loading...' : 'Click me!'}
           </button>
         </main>
